@@ -1,40 +1,53 @@
-//index.js
-//获取应用实例
-var app = getApp()
+var markersData = [];
+var amapFile = require('../../libs/amap-wx.js');
+
 Page({
   data: {
-    motto: '进入U骑',
-    userInfo: {}
+    markers: [],
+    latitude: '',
+    longitude: '',
+    scale: 15,
+    textData: {}
   },
-  //事件处理函数
-  bindViewTap: function () {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
+  makertap: function (e) {
+    var id = e.markerId;
+    var that = this;
+    that.showMarkerInfo(markersData, id);
   },
   onLoad: function () {
-    console.log('onLoad')
-    var that = this
-    //调用应用实例的方法获取全局数据
-    app.getUserInfo(function (userInfo) {
-      //更新数据
-      that.setData({
-        userInfo: userInfo
-      })
-    })
-  },
-  viewTap: function () {
-    wx.navigateTo({
-      url: '../map/map',
-      success: function(res){
-        // success
+    var that = this;
+    var myAmapFun = new amapFile.AMapWX({ key: '4ffd9adeef1253e6a3a048386d196e84' });
+    myAmapFun.getPoiAround({
+      iconPathSelected: '../../img/icon_bike.png',
+      iconPath: '../../img/icon_bike.png',
+      width: 128,
+      height: 128,
+      success: function (data) {
+        markersData = data.markers;
+        that.setData({
+          markers: markersData
+        });
+        that.setData({
+          latitude: markersData[0].latitude
+        });
+        that.setData({
+          longitude: markersData[0].longitude
+        });
+        that.showMarkerInfo(markersData, 0);
       },
-      fail: function(res) {
-        // fail
-      },
-      complete: function(res) {
-        // complete
+      fail: function (info) {
+        wx.showModal({ title: info.errMsg })
       }
     })
-  }
+  },
+  showMarkerInfo: function (data, i) {
+    var that = this;
+    that.setData({
+      textData: {
+        name: data[i].name,
+        desc: data[i].address
+      }
+    });
+  },
+
 })

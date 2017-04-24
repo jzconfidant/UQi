@@ -1,10 +1,11 @@
 {
   "pages":[
-    "pages/index/index",
+    "pages/login/login",
     "pages/map/map",
     "pages/logs/logs"
   ],
   "window":{
+    "backgroundColor": "#eeeeee",
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#112233",
     "navigationBarTitleText": "U骑",
