@@ -1,6 +1,7 @@
 var app = getApp()
 var _this
 var amapFile = require('../../libs/amap-wx.js')
+var islogin = false
 
 Page({
     data: {
@@ -28,7 +29,7 @@ Page({
                     width: 160,
                     height: 60
                 },
-                iconPath: '../../img/icon_scan_barcode.png',
+                iconPath: '../../images/icon_scan_barcode.png',
                 clickable: true
             },
             {
@@ -39,7 +40,7 @@ Page({
                     width: 40,
                     height: 40
                 },
-                iconPath: '../../img/icon_map_location.png',
+                iconPath: '../../images/icon_map_location.png',
                 clickable: true
             },
             {
@@ -50,7 +51,7 @@ Page({
                     width: 40,
                     height: 40
                 },
-                iconPath: '../../img/icon_map_menu.png',
+                iconPath: '../../images/icon_map_menu.png',
                 clickable: true
             }]
         })
@@ -78,17 +79,32 @@ Page({
         console.log(e.controlId)
         switch (e.controlId) {
             case 1: // 扫码开锁按钮
-                wx.scanCode({
-                    success: function (res) {
-                        // success
-                    },
-                    fail: function (res) {
-                        // fail
-                    },
-                    complete: function (res) {
-                        // complete
-                    }
-                })
+                if (islogin) {
+                    wx.scanCode({
+                        success: function (res) {
+                            // success
+                        },
+                        fail: function (res) {
+                            // fail
+                        },
+                        complete: function (res) {
+                            // complete
+                        }
+                    })
+                } else {
+                    wx.navigateTo({
+                        url: '../login/login',
+                        success: function (res) {
+                            // success
+                        },
+                        fail: function (res) {
+                            // fail
+                        },
+                        complete: function (res) {
+                            // complete
+                        }
+                    })
+                }
                 break
             case 2: // 定位按钮
                 wx.getLocation({
@@ -117,7 +133,7 @@ Page({
     },
     // 当屏幕区域变动时触发
     regionchange: function (e) {
-        
+
     },
     showBikeUnreservedInfo: function (e) {
         _this.setData({
@@ -129,7 +145,7 @@ Page({
                     width: 40,
                     height: 40
                 },
-                iconPath: '../../img/icon_map_menu.png',
+                iconPath: '../../images/icon_map_menu.png',
                 clickable: true
             }]
         })

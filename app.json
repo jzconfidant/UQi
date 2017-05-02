@@ -1,14 +1,13 @@
 {
   "pages":[
-    "pages/login/login",
     "pages/map/map",
-    "pages/logs/logs"
+    "pages/login/login"
   ],
   "window":{
     "backgroundColor": "#eeeeee",
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#112233",
-    "navigationBarTitleText": "U骑",
+    "navigationBarTitleText": "UQi",
     "navigationBarTextStyle":"white"
   }
 }
